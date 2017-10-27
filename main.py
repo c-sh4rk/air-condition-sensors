@@ -1,3 +1,3 @@
-import dataService
+import dht
 
-dataService.addSensorData("dht11", "humidity", 50)
+dht.readShowAndSave("dht22-3", "DHT22", 3)
