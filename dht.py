@@ -1,5 +1,6 @@
 import Adafruit_DHT
 import dataService
+import display
 
 def readSensor(name, gpio):
     if name == "DHT11":
@@ -20,8 +21,11 @@ def readSensor(name, gpio):
 def printValues(sensorId, humidity, temperature):
     print("{:s}: Temperature={:0.1f} degree  Humidity={:0.1f} %".format(sensorId, temperature, humidity))
 
-def readShowAndSave(sensorId, name, gpio):
+def readShowAndSave(sensorId, name, gpio, showOnDisplay):
     data = readSensor(name, gpio)
+
     printValues(sensorId, data["humidity"], data["temperature"])
     dataService.addSensorData(sensorId, "humidity", data["humidity"])
     dataService.addSensorData(sensorId, "temperature", data["temperature"])
+    if showOnDisplay == 1:
+        display.writeSensorValue(sensorId, data["temperature"], data["humidity"])
